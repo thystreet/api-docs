@@ -1,0 +1,203 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "contact" : {
+      "email" : "support@thystreet.com",
+      "name" : "Support",
+      "url" : "https://thystreet.com/support"
+    },
+    "description" : "Thy Street APIs are completely RESTful and all our responses are returned in JSON.",
+    "termsOfService" : "/policies/tos",
+    "title" : "ThyStreet",
+    "version" : "0.0.1"
+  },
+  "servers" : [ {
+    "description" : "Thystreet public API for controlling your device details",
+    "url" : "https://cheffy-api.thystreet.com/api/v1"
+  } ],
+  "security" : [ {
+    "thystreetAuth" : [ ]
+  } ],
+  "paths" : {
+    "/device/generate/{deviceId}" : {
+      "get" : {
+        "operationId" : "DeviceController_generateToken",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "deviceId",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Generate and set new 6 digit token."
+          },
+          "401" : {
+            "description" : "Unauthorized."
+          },
+          "403" : {
+            "description" : "Forbidden."
+          }
+        },
+        "tags" : [ "Device" ]
+      }
+    },
+    "/device/status" : {
+      "put" : {
+        "operationId" : "DeviceController_setStatus",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DeviceStatusDto"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Device status has been successfully enabled."
+          },
+          "401" : {
+            "description" : "Unauthorized."
+          },
+          "403" : {
+            "description" : "Forbidden."
+          }
+        },
+        "tags" : [ "Device" ]
+      }
+    },
+    "/device/token" : {
+      "put" : {
+        "operationId" : "DeviceController_setDeviceToken",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DeviceTokenDto"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Device status has been successfully enabled."
+          },
+          "401" : {
+            "description" : "Unauthorized."
+          },
+          "403" : {
+            "description" : "Forbidden."
+          }
+        },
+        "tags" : [ "Device" ]
+      }
+    },
+    "/order/status" : {
+      "put" : {
+        "operationId" : "OrderController_setStatus",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/OrderStatusDto"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Updates order status."
+          },
+          "401" : {
+            "description" : "Unauthorized."
+          },
+          "403" : {
+            "description" : "Forbidden."
+          }
+        },
+        "tags" : [ "Order" ]
+      }
+    }
+  },
+  "components" : {
+    "callbacks" : { },
+    "examples" : { },
+    "headers" : { },
+    "links" : { },
+    "parameters" : { },
+    "requestBodies" : { },
+    "responses" : { },
+    "schemas" : {
+      "DeviceStatusDto" : {
+        "properties" : {
+          "available" : {
+            "description" : "Set current device availablity",
+            "nullable" : false,
+            "type" : "boolean"
+          },
+          "deviceId" : {
+            "description" : "Device ID",
+            "nullable" : false,
+            "type" : "string"
+          }
+        },
+        "required" : [ "available", "deviceId" ],
+        "type" : "object"
+      },
+      "DeviceTokenDto" : {
+        "properties" : {
+          "deviceId" : {
+            "description" : "Device ID",
+            "nullable" : false,
+            "type" : "string"
+          },
+          "token" : {
+            "description" : "Set device token ",
+            "maxLength" : 6,
+            "minLength" : 6,
+            "nullable" : false,
+            "type" : "boolean"
+          }
+        },
+        "required" : [ "deviceId", "token" ],
+        "type" : "object"
+      },
+      "OrderStatusDto" : {
+        "properties" : {
+          "orderId" : {
+            "description" : "Order ID",
+            "nullable" : false,
+            "type" : "string"
+          },
+          "status" : {
+            "description" : "Set order status",
+            "enum" : [ "CONFIRMED", "COMPLETED" ],
+            "nullable" : false,
+            "type" : "string"
+          }
+        },
+        "required" : [ "orderId", "status" ],
+        "type" : "object"
+      }
+    },
+    "securitySchemes" : {
+      "thystreetAuth" : {
+        "description" : "Base64 format of api_key:api_secret",
+        "scheme" : "basic",
+        "type" : "http"
+      }
+    }
+  }
+}
