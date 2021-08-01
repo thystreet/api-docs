@@ -7,7 +7,7 @@ jobs:
     name: Generating API documentation
     steps:
       - name: Checkout
-        uses: actions/checkout@masterf
+        uses: actions/checkout@master
 
       # use the public name of the action
       - name: Run redoc cli
