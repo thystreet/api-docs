@@ -1,0 +1,26 @@
+on:
+  push:
+    branches: [ master ]
+jobs:
+  publish-documents:
+    runs-on: ubuntu-latest
+    name: Generating API documentation
+    steps:
+      - name: Checkout
+        uses: actions/checkout@masterf
+
+      # use the public name of the action
+      - name: Run redoc cli
+        uses: seeebiii/redoc-cli-github-action@v10
+        with:
+          args: 'bundle --cdn ./openapi/openapi.yaml --options redocly.json'
+
+      - name: Commit files
+        run: |
+          git config --local user.email "akash@thystreet.com"
+          git config --local user.name "Akash"
+          git commit -m "Building GH pages" -a
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          branch: gh-pages
