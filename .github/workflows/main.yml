@@ -13,7 +13,7 @@ jobs:
       - name: Run redoc cli
         uses: seeebiii/redoc-cli-github-action@v10
         with:
-          args: 'bundle --cdn ./openapi/openapi.yaml --options redocly.json'
+          args: 'bundle --cdn ./openapi/openapi.yaml --options redocly.json -o docs/index.html'
 
       - name: Commit files
         run: |
