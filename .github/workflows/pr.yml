@@ -3,7 +3,7 @@ on:
     branches:
       # apigentools will push branches named like
       # 'cpp-tiny/1568207674.3489769'
-      - 'openapi/*'
+      - 'openapi-yaml/*'
 jobs:
   open-pr:
     runs-on: ubuntu-latest
