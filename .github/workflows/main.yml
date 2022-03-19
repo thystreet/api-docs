@@ -19,7 +19,7 @@ jobs:
         run: |
           git config --local user.email "akash@thystreet.com"
           git config --local user.name "Akash"
-          git commit -m "Building GH pages" -a
+          git commit -m "Building GH pages" -a --allow-empty
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
